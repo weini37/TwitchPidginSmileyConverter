@@ -108,25 +108,25 @@ public class Main
 
 		String imageiconURL = "http:" + o.getJSONObject("template").getString("small");
 
-		JSONObject channels = o.getJSONObject("emotes");
+		JSONObject emotes = o.getJSONObject("emotes");
 
 		int counter = 1;
 
-		for (String channelname : channels.keySet())
+		for (String emotename : emotes.keySet())
 		{
 			try
 			{
-				JSONObject emote = channels.getJSONObject(channelname);
-				System.out.println(counter + "/" + channels.length() + "\t" + channelname + "\t" + imageiconURL.replace("{image_id}", "" + emote.getInt("image_id")));
-				if (!new File(dir.getPath() + File.separator + channelname).exists())
+				JSONObject emote = emotes.getJSONObject(emotename);
+				System.out.println(counter + "/" + emotes.length() + "\t" + emotename + "\t" + imageiconURL.replace("{image_id}", "" + emote.getInt("image_id")));
+				if (!new File(dir.getPath() + File.separator + emotename).exists())
 				{
-					FileDownloader.saveImage(imageiconURL.replace("{image_id}", "" + emote.getInt("image_id")), dir.getPath() + File.separator + channelname);
+					FileDownloader.saveImage(imageiconURL.replace("{image_id}", "" + emote.getInt("image_id")), dir.getPath() + File.separator + emotename);
 				}
-				writer.write(channelname + "\t\t\t\t" + channelname + "\n");
+				writer.write(emotename + "\t\t\t\t" + emotename + "\n");
 			} catch (Exception e)
 			{
 				e.printStackTrace();
-				System.err.println("Can't download " + channelname);
+				System.err.println("Can't download " + emotename);
 			}
 			counter++;
 		}
